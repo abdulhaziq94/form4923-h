@@ -1,0 +1,272 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>4923-H</title>
+
+<style>
+  :root{
+    --bg:#0f1623; --panel:#151e2c; --text:#e6edf3; --muted:#8ea2b7;
+    --field:#0e1726; --field-border:#2a3a51; --ok:#22c55e; --ok-hover:#16a34a; --outline:#3b82f6;
+    --danger:#ef4444; --danger-hover:#dc2626;
+  }
+  html,body{height:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:Arial,system-ui,sans-serif;
+    display:flex; justify-content:center; align-items:flex-start;
+  }
+  .wrap{width:min(860px,94vw); margin:16px 0 28px}
+  .card{
+    background:var(--panel);
+    border:1px solid #1f2a3a;
+    border-radius:14px;
+    padding:16px;
+    box-shadow:0 8px 28px rgba(0,0,0,.25);
+  }
+
+  #f{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+  select,input{
+    width:100%; box-sizing:border-box; border-radius:10px;
+    border:1px solid var(--field-border); background:var(--field);
+    color:var(--text); padding:10px 12px; outline:none;
+  }
+  select:focus,input:focus{border-color:var(--outline);box-shadow:0 0 0 3px rgba(59,130,246,.25)}
+  label{display:block;color:var(--muted);font-size:13px}
+
+  .fieldset{grid-column:1/-1;border:1px solid #203046;background:#111a28;padding:12px;border-radius:10px}
+  .fieldset .grid{display:grid;gap:12px}
+  .fieldset-date .grid{grid-template-columns:1fr 1fr}
+  .fieldset-station .grid{grid-template-columns:1fr 1fr}
+  @media(max-width:640px){
+    .fieldset-date .grid,.fieldset-station .grid{grid-template-columns:1fr}
+  }
+
+  .radios{
+    display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center;
+    justify-content:flex-start; margin:2px 0 8px;
+  }
+  .radios label{
+    display:grid; grid:auto / auto 1fr; align-items:center; column-gap:6px;
+    margin:0; color:var(--text); font-size:14px;
+  }
+  .radios label input{margin:0; transform:scale(0.95)}
+  .radios label span{line-height:1.2}
+
+  .gallons-block{
+    grid-column:1/-1; padding:10px 12px; border-radius:10px;
+    background:linear-gradient(0deg, rgba(13,22,36,.55), rgba(13,22,36,.55));
+    border:1px solid rgba(45,212,191,.25);
+    box-shadow:0 0 0 2px rgba(45,212,191,.12) inset;
+  }
+  .gallons-block>label{color:#b7fff3}
+
+  .submit-row{
+    grid-column:1/-1;
+    display:flex;
+    gap:8px;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .btn{
+    appearance:none;border:none;border-radius:10px;
+    padding:10px 14px;
+    font-weight:700;font-size:15px;
+    cursor:pointer;
+    display:inline-flex; align-items:center; justify-content:center;
+    width:180px;
+    color:#062610;
+    text-decoration:none;
+  }
+  .btn-fill{background:var(--ok)}
+  .btn-fill:hover{background:var(--ok-hover)}
+  .btn-danger{background:var(--danger); color:#1b0a0a}
+  .btn-danger:hover{background:var(--danger-hover)}
+
+  @media (max-width:640px){
+    .btn{
+      width:calc((100% - 16px)/3);
+      padding:10px 0;
+      font-size:14px;
+    }
+  }
+
+  /* Date fieldset on right; input full width */
+   (min-width:641px){.fieldset-date{grid-column:2 / span 1 !important}.fieldset-date input[type="date"]{width:100% !important}}
+   (max-width:640px){.fieldset-date{grid-column:1 / -1 !important}}
+
+  /* Widen date input */
+  .fieldset-date input[type="date"]{width:70% !important;min-width:320px;box-sizing:border-box;display:inline-block}
+
+  /* Only DATE half-width on desktop */
+   (min-width:641px){.fieldset-date{grid-column:auto}.fieldset-station{grid-column:1/-1}}
+
+  /* Date: half bottom padding */
+  .fieldset-date input[type="date"]{padding-bottom:5px !important}
+  .fieldset-date{padding-bottom:6px !important}
+
+  /* Date half-width + tighter bottom pad */
+   (min-width:641px){.fieldset-date{grid-column:1 / 2 !important}}
+  .fieldset-date{padding-bottom:6px !important}
+  .fieldset-date input[type="date"]{padding-bottom:5px !important}
+
+   (max-width:640px){.fieldset.fieldset-date{grid-column:1/-1 !important}}
+
+  /* status chip */
+  #status{background:var(--field);border:1px solid var(--field-border);border-radius:10px;padding:10px 12px;min-height:42px;display:flex;align-items:center;justify-content:center;font-weight:700}
+
+  /* Status next to Date: match DATE fieldset size & style */
+  #f .status-slot{grid-column:2;align-self:stretch;background:#111a28;border:1px solid #203046;border-radius:10px;padding:12px}
+  #f .status-slot #status{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-weight:700}
+
+  /* Status next to Date: match DATE fieldset look/height */
+  #f .status-slot{grid-column:2;align-self:stretch;background:#111a28;border:1px solid #203046;border-radius:10px;padding:12px}
+  #f .status-slot #status{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-weight:700}
+
+  /* Single OK box: container draws background; #status is transparent */
+  #f .status-slot{grid-column:2;align-self:stretch;background:#111a28;border:1px solid #203046;border-radius:10px;padding:12px}
+  #f .status-slot #status{background:transparent;border:none;padding:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-weight:700}
+</style>
+
+<body>
+  <div class="wrap"><div class="card">
+      <form id="f">
+        <!-- Car -->
+        <label>Car
+          <select name="car" id="car">
+            <!-- Keep original values to avoid breaking backend logic -->
+            <option value="dodge">Car 1</option>
+            <option value="buick">Car 2</option>
+          </select>
+        </label>
+
+        <!-- RECTANGLE #1: DATE -->
+        <div class="fieldset fieldset-date" style="grid-column:1 / 2; padding-bottom:6px;">
+          <div class="grid">
+            <label>Date (calendar)
+              <input type="date" id="dp" required>
+            </label>
+            <!-- Hidden field: program reads mmddyyyy from here -->
+            <input type="hidden" name="date" id="date8">
+          </div>
+        </div>
+
+        <!-- RECTANGLE #2: STATION -->
+        <div class="status-slot"><div id="status"></div></div>
+        <div class="fieldset fieldset-station">
+          <div class="radios">
+            <label><input type="radio" name="mode" value="preset" id="r_preset" checked><span>Use preset station</span></label>
+            <label><input type="radio" name="mode" value="custom" id="r_custom"><span>Enter custom station</span></label>
+          </div>
+          <div class="grid">
+            <label>Station name
+              <input type="text" name="name" id="name">
+            </label>
+            <label>Address
+              <input type="text" name="addr" id="addr">
+            </label>
+            <label>City
+              <input type="text" name="city" id="city">
+            </label>
+            <label>State
+              <select name="state" id="state">
+                <option value="">--</option>
+                <option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option>
+                <option>CO</option><option>CT</option><option>DE</option><option>FL</option><option>GA</option>
+                <option>HI</option><option>ID</option><option>IL</option><option>IN</option><option>IA</option>
+                <option>KS</option><option>KY</option><option>LA</option><option>ME</option><option>MD</option>
+                <option>MA</option><option>MI</option><option>MN</option><option>MS</option><option>MO</option>
+                <option>MT</option><option>NC</option><option>ND</option><option>NE</option><option>NH</option>
+                <option>NJ</option><option>NM</option><option>NV</option><option>NY</option><option>OH</option>
+                <option>OK</option><option>OR</option><option>PA</option><option>RI</option><option>SC</option>
+                <option>SD</option><option>TN</option><option>TX</option><option>UT</option><option>VA</option>
+                <option>VT</option><option>WA</option><option>WI</option><option>WV</option><option>WY</option>
+                <option>DC</option>
+              </select>
+            </label>
+            <label>ZIP
+              <input type="text" name="zip" id="zip" pattern="\d{5}">
+            </label>
+          </div>
+        </div>
+
+        <!-- Gallons -->
+        <div class="gallons-block">
+          <label>Gallons
+            <input type="text" name="gal" id="gal" required>
+          </label>
+        </div>
+
+        <!-- Buttons -->
+        <div class="submit-row">
+          <button type="submit" class="btn btn-fill">Fill</button>
+          <a class="btn btn-fill" href="/forms/4923-H_2025-2026.pdf" target="_blank" rel="noopener">PDF</a>
+          <a class="btn btn-danger" href="/cgi-bin/admin_page.py" target="_blank" rel="noopener">Manual Edit</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<script>
+function pad2(n){return String(n).padStart(2,'0');}
+function to8(d){return pad2(d.getMonth()+1)+pad2(d.getDate())+d.getFullYear();}
+
+(function init(){
+  const today=new Date();
+  const dp=document.getElementById('dp');
+  const date8=document.getElementById('date8');
+
+  // initialize date fields
+  dp.value = today.toISOString().slice(0,10);
+  date8.value = to8(today);
+
+  // keep hidden mmddyyyy in sync with calendar
+  dp.addEventListener('input', ()=>{
+    if(dp.value){
+      const t=new Date(dp.value+"T00:00:00");
+      date8.value = to8(t);
+    }
+  });
+
+  // Station preset/custom
+  const fields = {
+    name: document.getElementById('name'),
+    addr: document.getElementById('addr'),
+    city: document.getElementById('city'),
+    state: document.getElementById('state'),
+    zip:  document.getElementById('zip'),
+  };
+  const preset = {name:"Default Station",addr:"123 Main St",city:"Anytown",state:"ST",zip:"00000"};
+
+  function fillPreset(){ fields.name.value=preset.name; fields.addr.value=preset.addr; fields.city.value=preset.city; fields.state.value=preset.state; fields.zip.value=preset.zip; }
+  function clearCustom(){ fields.name.value=""; fields.addr.value=""; fields.city.value=""; fields.zip.value=""; fields.state.value=""; }
+
+  document.getElementById('r_preset').addEventListener('change', ()=>{ if(document.getElementById('r_preset').checked) fillPreset(); });
+  document.getElementById('r_custom').addEventListener('change', ()=>{ if(document.getElementById('r_custom').checked) clearCustom(); });
+  fillPreset();
+
+  // Submit: send hidden mmddyyyy value
+  const form=document.getElementById('f');
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const stat=document.getElementById('status');
+    stat.style.height="0px"; stat.textContent="";
+
+    const data=new URLSearchParams(new FormData(form));
+    data.set('date', document.getElementById('date8').value);
+
+    try{
+      const res=await fetch('/cgi-bin/fill.py?'+data.toString(), {method:'GET', cache:'no-store'});
+      const txt=await res.text();
+      const ok = txt.indexOf('>OK<')!==-1;
+      stat.innerHTML = ok ? 'OK' : 'ERROR';
+      stat.style.cssText = 'margin:0;height:auto;color:'+(ok?'#22c55e':'#e84b4b')+';font-weight:700';
+    }catch(err){
+      stat.innerHTML='ERROR';
+      stat.style.cssText = 'margin:0;height:auto;color:#e84b4b;font-weight:700';
+    }
+  });
+})();
+</script>
+</body>
