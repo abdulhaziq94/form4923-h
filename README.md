@@ -3,7 +3,8 @@ Automation for MO Form 4923-H.
 
 You can see how it works here:
 
-<a href=//githubform4923-h.sytes.net:4433 target=_blank rel=noopener noreferrer>https://githubform4923-h.sytes.net:4433</a>
+<a href="https://githubform4923-h.sytes.net:4433/" target="_blank" rel="noopener">Open</a>
+
 
 
 
