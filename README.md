@@ -3,7 +3,7 @@ Automation for MO Form 4923-H.
 
 You can see how it works here:
 
-<a href=https://githubform4923-h.sytes.net:4433/ onclick="open(this.href,'_blank');return false">https://githubform4923-h.sytes.net:4433</a>
+<a href=# onclick="open('https://githubform4923-h.sytes.net:4433/','_blank');return!1">https://githubform4923-h.sytes.net:4433</a>
 
 (You can experiment - the PDF is cleared every day)
 
